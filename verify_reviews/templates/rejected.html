@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Revvit</a>
+    <span class="navbar-text">Admin Console</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="approved">Approved</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="rejected">Rejected <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Rejected Reviews</li>
+  </ol>
+</nav>
+    {% if reviews|length %}
+    <ul class="list-group">
+        <form name="review" method="post">
+            {% csrf_token %}
+            {% for i in reviews %}
+            <li class="list-group-item">
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="{{i.id}}" name="check" value="{{i.id}}">
+                    <label class="form-check-label" for="{{i.id}}">
+                        <div class="card" id="{{ i.id }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ i.faculty }}</h5>
+                                <p class="card-text">{{ i.review }}</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </li>
+            {% endfor %}
+            <input type="submit" name="action" class="btn btn-success" value="Approve"/>
+        </form>
+    </ul>
+    {% else %}
+    <ul class="list-group">
+        <li class="list-group-item">
+            No Reviews
+        </li>
+    </ul>
+    {% endif %}
+
+{% endblock %}
