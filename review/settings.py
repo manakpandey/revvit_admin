@@ -26,7 +26,8 @@ SECRET_KEY = 'zflora8(w3of@*@*@m)0^+yyhdn$z^*e9^oj30orrn^q2v1%-a'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '127.0.0.1'
+    '127.0.0.1',
+    '.pythonanywhere.com'
 ]
 
 
